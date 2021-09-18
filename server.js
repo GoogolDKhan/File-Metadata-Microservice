@@ -12,6 +12,17 @@ app.get('/', function (req, res) {
 });
 
 
+const multer = require('multer');
+
+app.post('/api/fileanalyse', multer().single('upfile'), (request, response) => {
+  console.log(request.file)
+  let responseObject = {}
+  responseObject['name'] = request.file.originalname
+  responseObject['type'] = request.file.mimetype
+  responseObject['size'] = request.file.size
+  
+  response.json(responseObject)
+});
 
 
 const port = process.env.PORT || 3000;
